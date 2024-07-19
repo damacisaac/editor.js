@@ -47,8 +47,13 @@ export async function getKeyboardKeyForCode(code: string, fallback: string): Pro
     return fallback;
   }
 
-  const map = await keyboard.getLayoutMap();
-  const key = map.get(code);
+  try {
+    const map = await keyboard.getLayoutMap();
 
-  return key || fallback;
+    const key = map.get(code);
+
+    return key || fallback;
+  } catch (e) {
+    return fallback
+  }
 }
